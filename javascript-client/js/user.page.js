@@ -21,6 +21,39 @@ $(document).ready(function () {
 
     });
 
+    var currentUser = SDK.User.current();
+    $("#currentUserName").text(currentUser.username);
+
+    // TODO: Lav modal til når der trykkes på addReserveButton
+
+    /**
+     * reserve ad
+     */
+    $("#addreserveadButton").on("click", function () {
+
+        //Show modal
+        $('#reserveadModal').modal('show');
+
+        //Fetch authors, and set to DOM
+
+        $("#reserveadButton").on("click", function () {
+
+            //Create JSON object
+            var reservation = {
+                id: parseInt($("#adId").val()),
+                userId: SDK.User.current().userId
+            };
+
+            //Create reservation
+            SDK.Ad.reserve(reservation, function (err, data) {
+                if (err) {
+                    return $("#reserveadForm").find(".form-group").addClass("has-error");
+                }
+                $("#reserveadModal").modal("hide");
+            });
+
+        });
+    });
 
 
     //Fires on page-load
@@ -39,12 +72,12 @@ $(document).ready(function () {
                 "<td>" + ad.userMobilepay + "</td>" +
                 "<td>" + ad.userCash + "</td>" +
                 "<td>" + ad.userPhonenumber + "</td>" +
+                "<td>" + ad.comment + "</td>" +
+                "<td>" + ad.adId + "</td>" +
                 "</tr>");
         });
 
     });
-
-    // TODO: Lav modal til når der trykkes på addReserveButton
 
 
     //Fires on page-load
@@ -71,37 +104,76 @@ $(document).ready(function () {
     $("#currentUserName").text(currentUser.username);
 
     /**
-    * Add a new ad
-    */
+     * Add a new ad
+     */
     $("#addCreateNewAdButton").on("click", function () {
 
-    //Show modal
-    $('#newAdModalModal').modal('show');
+        //Show modal
+        $('#newAdModal').modal('show');
 
-    //Fetch authors, and set to DOM
+        //Fetch authors, and set to DOM
 
-    $("#createAdButton").on("click", function () {
+        $("#createAdButton").on("click", function () {
 
-        //Create JSON object
-        var ad = {
-            title: $("#bookTitle").val(),
-            price: parseInt($("#adPrice").val()),
-            author: $("#bookAuthor").val(),
-            edition: $("#bookEdition").val(),
-            isbn: parseInt($("#bookISBN").val())
+            //Create JSON object
+            var ad = {
+                comment: $("#bookComment").val(),
+                price: parseInt($("#bookPrice").val()),
+                isbn: parseInt($("#bookISBN").val()),
+                rating: parseInt($("#bookRating").val()),
+                userId: SDK.User.current().userId
+            };
+
+            //Create ad
+            SDK.Ad.create(ad, function (err, data) {
+                if (err) {
+                    return $("#createAdForm").find(".form-group").addClass("has-error");
+                }
+                $("#newAdModal").modal("hide");
+            });
+
+        });
+    });
+
+
+    var currentUser = SDK.User.current();
+    $("#currentUserName").text(currentUser.username);
+
+    /**
+     * Update user
+     */
+    $("addUpdateUserButton").on("click", function () {
+
+        $('#updateUserModal').modal('show');
+
+
+        var user = {
+            username: $("#username").val(),
+            email: $("#email").val(),
+            mobilepay: parseInt($("#mobilepay").val()),
+            cash: parseInt($("#cash").val()),
+            password: $("#password").val(),
+            phonenumber: parseInt($("#phonenumber").val),
+            address: $("#address").val,
+            transfer: parseInt($("#transfer").val)
         };
 
-        //Create ad
-        SDK.Ad.create(ad, function (err, data) {
+
+        SDK.User.handleUpdate(ad, function (err, data) {
             if (err) {
-                return $("#createAdForm").find(".form-group").addClass("has-error");
+                return $("updateUserForm").find(".form-group").addClass("has-error");
             }
-            $("#newAdModal").modal("hide");
-        });
+            $("updateUserModal").modal("hide");
+        })
 
     });
-});
 
-});
+
+    });
+
+
+
+
+
 
 

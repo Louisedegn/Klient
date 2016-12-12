@@ -37,13 +37,15 @@ var SDK = {
   },
 
   Ad: {
-    getAll: function(cb) {
-      SDK.request( {method: "GET", url: "/getads"}, cb);
+    getAll: function (cb) {
+      SDK.request({method: "GET", url: "/getads"}, cb);
     },
     create: function (data, cb) {
       SDK.request({method: "POST", url: "/createad", data: data}, cb);
+    },
+    reserve: function (data, cb) {
+      SDK.request({method: "POST", url: "/reservead", data: data}, cb);
     }
-    // Tilføj reserve kald
   },
 
 
@@ -58,7 +60,10 @@ var SDK = {
       SDK.request({method:"POST", url: "/createuser", data: data}, cb);
     },
     delete: function (data,cd) {
-      SDK. request({method: "POST", url: "/deleteuser", data: data}, cd);
+      SDK. request({method: "POST", url: "/deleteuseradmin", data: data}, cd);
+    },
+    update: function (data, cb) {
+      SDK.request({method: "POST", url: "/updateuser", data: data}, cb);
     }
 
   },

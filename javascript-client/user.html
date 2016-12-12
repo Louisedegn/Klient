@@ -12,6 +12,37 @@
 </head>
 <body>
 
+<!------- reserve ad modal ------>
+<div class="modal fade" id="reserveadModal" tabindex="-1" style="z-index: 10000;" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Reserve ad</h4>
+            </div>
+            <div class="modal-body" id="reserveadForm">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label" for="adId">adId</label>
+                            <input class="form-control" id="adId" type="text">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-success" id="reserveadButton">Reserve ad</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 <div class="container">
 
@@ -43,7 +74,7 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="login.html">Log out</a></li>
-                            <li><a href="uddateUser.htmlUser.html">Update User</a></li>
+
                         </ul>
                     </div>
                 </div>
@@ -57,7 +88,7 @@
 
 
             <div class="page-header">
-                <h1>All books you can buy!</h1>
+                <h1>All ads!</h1>
             </div>
 
             <div class="panel panel-primary">
@@ -75,6 +106,8 @@
                         <th>MobilePay</th>
                         <th>Cash</th>
                         <th>Phonenumber</th>
+                        <th>Comment</th>
+                        <th>adId</th>
                         </thead>
                         <tbody id="adsTableBody">
 
@@ -84,7 +117,7 @@
 
                     <hr>
                     <!-- Button trigger modal -->
-                    <button class="btn btn-success" id="addReserveButton">
+                    <button class="btn btn-success" id="addreserveadButton">
                         <span class="glyphicon glyphicon-plus"></span> Reserve book
                     </button>
 

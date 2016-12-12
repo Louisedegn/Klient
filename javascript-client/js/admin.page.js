@@ -116,10 +116,11 @@ $(document).ready(function () {
         mobilepay: parseInt ($("#mobilepay").val()),
         cash: parseInt($("#cash").val()),
         password: $("#password").val(),
-        phonenumber: parseInt($("#phonenumber").val),
-        address: $("#address").val,
-        transfer: parseInt($("#transfer").val)
+        phonenumber: parseInt($("#phonenumber").val()),
+        address: $("#address").val(),
+        transfer: parseInt($("#transfer").val())
       };
+
 
       SDK.User.create(user, function (err, data) {
         if (err) {
@@ -139,10 +140,10 @@ $(document).ready(function () {
 
 
       $("#deleteUserButton").on("click", function () {
-        var book = {
+        var user = {
           id: parseInt($("#deleteUserId").val())
         };
-        SDK.Book.delete(book, function (err, data) {
+        SDK.User.delete(user, function (err, data) {
           if (err) {
             return $("#deleteUserForm").addClass("has-error");
           }
