@@ -1,5 +1,7 @@
 var SDK = {
 
+  //SDK er her der bliver lavet API kald og i denne klasse er der forbindelse til serveren.
+
   serverURL: "https://localhost:8000",
 
   request: function (options, cb) {
@@ -22,7 +24,7 @@ var SDK = {
       }
     });
   },
-
+  //Her har vi alle metoder der har med bøger i vores applikation at gøre. Først getbooks, createbook og deletebook.
   Book: {
     getAll: function (cb) {
       SDK.request({method: "GET", url: "/getbooks", headers: {filter: {include: ["author", "publisher"]}}}, cb);
@@ -35,7 +37,7 @@ var SDK = {
     }
 
   },
-
+  //Her har vi alle metoder der har med annoncer at gøre i vores applikation. Først getads, create ad og reservead.
   Ad: {
     getAll: function (cb) {
       SDK.request({method: "GET", url: "/getads"}, cb);
@@ -48,7 +50,7 @@ var SDK = {
     }
   },
 
-
+  //Her har vi alle metoder der har med brugere at gøre. Først getusers, loaduser, createuser og deleteuser.
   User: {
     getAll: function (cb) {
       SDK.request({method: "GET", url: "/getusers"}, cb);
@@ -61,11 +63,7 @@ var SDK = {
     },
     delete: function (data,cd) {
       SDK. request({method: "POST", url: "/deleteuseradmin", data: data}, cd);
-    },
-    update: function (data, cb) {
-      SDK.request({method: "POST", url: "/updateuser", data: data}, cb);
     }
-
   },
 
   Publisher: {
@@ -80,12 +78,14 @@ var SDK = {
     }
   },
 
+  //Log ud funktion - Fjerner userId, og fjerner dig som logget ind.
   logOut:function() {
     SDK.Storage.remove("tokenId");
     SDK.Storage.remove("userId");
     SDK.Storage.remove("user");
   },
 
+  //Login funktion - Tager dit username og password.
   login: function (username, password, cb) {
     this.request({
       data: {

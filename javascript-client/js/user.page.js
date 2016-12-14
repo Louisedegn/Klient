@@ -24,10 +24,9 @@ $(document).ready(function () {
     var currentUser = SDK.User.current();
     $("#currentUserName").text(currentUser.username);
 
-    // TODO: Lav modal til når der trykkes på addReserveButton
 
     /**
-     * reserve ad
+     * reserve ad funktion: Her styrer man først klikket på knappen, og herefter vider den modalen som er lavet i user.html
      */
     $("#addreserveadButton").on("click", function () {
 
@@ -54,7 +53,7 @@ $(document).ready(function () {
 
         });
     });
-
+    //Loader alle annoncer
 
     //Fires on page-load
     SDK.Ad.getAll(function (err, data) {
@@ -105,16 +104,18 @@ $(document).ready(function () {
 
     /**
      * Add a new ad
+     * Samme som reserve ad:
+     * 1.Først opfanger den klikket på knappen
      */
     $("#addCreateNewAdButton").on("click", function () {
 
-        //Show modal
+        //Viser modal
         $('#newAdModal').modal('show');
 
         //Fetch authors, and set to DOM
 
         $("#createAdButton").on("click", function () {
-
+             // Indtaster information i modalet
             //Create JSON object
             var ad = {
                 comment: $("#bookComment").val(),
@@ -124,7 +125,7 @@ $(document).ready(function () {
                 userId: SDK.User.current().userId
             };
 
-            //Create ad
+            //Opretter annonce
             SDK.Ad.create(ad, function (err, data) {
                 if (err) {
                     return $("#createAdForm").find(".form-group").addClass("has-error");
@@ -139,34 +140,6 @@ $(document).ready(function () {
     var currentUser = SDK.User.current();
     $("#currentUserName").text(currentUser.username);
 
-    /**
-     * Update user
-     */
-    $("addUpdateUserButton").on("click", function () {
-
-        $('#updateUserModal').modal('show');
-
-
-        var user = {
-            username: $("#username").val(),
-            email: $("#email").val(),
-            mobilepay: parseInt($("#mobilepay").val()),
-            cash: parseInt($("#cash").val()),
-            password: $("#password").val(),
-            phonenumber: parseInt($("#phonenumber").val),
-            address: $("#address").val,
-            transfer: parseInt($("#transfer").val)
-        };
-
-
-        SDK.User.handleUpdate(ad, function (err, data) {
-            if (err) {
-                return $("updateUserForm").find(".form-group").addClass("has-error");
-            }
-            $("updateUserModal").modal("hide");
-        })
-
-    });
 
 
     });
