@@ -1,6 +1,8 @@
 $(document).ready(function () {
 
-
+  /**
+   * Loader bøger når man er logget ind som admin
+   */
   SDK.Book.getAll(function (err, data) {
     if (err) throw err;
 
@@ -18,7 +20,7 @@ $(document).ready(function () {
 
   });
 
-  //Fires on page-load
+  //Loader brugere når man er logget ind som admin
   SDK.User.getAll(function (err, users) {
     if (err) throw err;
 
@@ -37,18 +39,20 @@ $(document).ready(function () {
 
   });
 
+
   var currentUser = SDK.User.current();
   $("#currentUserName").text(currentUser.username);
 
   /**
-   * Add a new Book
+   * Opret en ny bog
+   * Først registerer den man klikker på knappen der eksisterer nedest i vores book table der er vist på siden
    */
   $("#addNewBookButton").on("click", function () {
 
-    //Show modal
+    //Herefter kommer modalet op, der hænger sammen med oprettelsen af en ny bog
     $('#newBookModal').modal('show');
 
-    //Fetch authors, and set to DOM
+    //Indtaster information der skal til for at kunne oprette en ny bog
 
     $("#createBookButton").on("click", function () {
 
@@ -60,27 +64,32 @@ $(document).ready(function () {
         edition: $("#bookEdition").val()
       };
 
-      //Create book
+      //Bogen bliver oprettet hvis man har indtastet korrekt information i de forskellige felter.
       SDK.Book.create(book, function (err, data) {
         if (err) {
           return $("#createBookForm").find(".form-group").addClass("has-error");
         }
+        // Modalet forsvinder og en ny bog er oprettet i databasen og vises nu på listen over bøger.
         $("#newBookModal").modal("hide");
       });
 
     });
   });
 
+  //Samme opbygning som opret bog
   $("#addDeleteBookButton").on("click", function () {
 
-    //Show modal
+    //Viser modal
     $('#deleteBookModal').modal('show');
 
+    //Her indtaster man ISBN da det er PRIMERY KEY i databasen.
 
     $("#deleteBookButton").on("click", function () {
       var book = {
         isbn: parseInt($("#deletebookISBN").val())
       };
+
+      //Sletter bogen hvis ISBN eksisterer.
       SDK.Book.delete(book, function (err, data) {
         if (err) {
           return $("#deleteBookForm").addClass("has-error");
@@ -98,11 +107,11 @@ $(document).ready(function () {
 
 
   /**
-   * Add a new user
+   * Tilføj ny bruger
    */
   $("#addNewUserButton").on("click", function () {
 
-    //show modal
+    //Viser modal
     $('#newUserModal').modal('show');
 
     //Fetch authors, and set to DOM
@@ -121,7 +130,7 @@ $(document).ready(function () {
         transfer: parseInt($("#transfer").val())
       };
 
-
+      //Opretter ny bruger hvis informationerne er korrekte
       SDK.User.create(user, function (err, data) {
         if (err) {
           return $("#createUserForm").find(".form-group").addClass("has-error");
@@ -132,17 +141,18 @@ $(document).ready(function () {
 
     });
   });
-
+      //Slet bruger funktion
     $("#addDeleteUserButton").on("click", function () {
 
-      //Show modal
+      //Vis modal
       $('#deleteUserModal').modal('show');
 
-
+       //Indtast userId som er PRIMERY KEY i databasen i vores user tabel.
       $("#deleteUserButton").on("click", function () {
         var user = {
           id: parseInt($("#deleteUserId").val())
         };
+        //Sletter bruger hvis man har indtastet et userId der eksisterer i databasen
         SDK.User.delete(user, function (err, data) {
           if (err) {
             return $("#deleteUserForm").addClass("has-error");

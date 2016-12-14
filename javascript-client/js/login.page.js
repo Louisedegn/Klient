@@ -1,4 +1,9 @@
 
+/**
+ * Funktionen får først klikket på knappen login og herefter henter den inputet i felterne
+ * Hvis der er en type 1 skifter den til admin.html og hvis det er 0 skifter den til user.html
+ */
+
 $(document).ready(function () {
 
   $("#loginButton").on("click", function(e){

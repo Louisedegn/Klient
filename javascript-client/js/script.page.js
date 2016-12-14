@@ -2,6 +2,10 @@
  * Created by louisedegn on 11/11/16.
  */
 
+/**
+ * Sammenligner username & password med users i databasen gennem serveren
+ */
+
 
 
 function login() {

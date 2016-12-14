@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 
-    //Fires on page-load
+    //Loader bøger uden man er logget ind i systemet.
     SDK.Book.getAll(function(err, data){
         if(err) throw err;
 
